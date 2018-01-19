@@ -26,14 +26,14 @@ stop() {
 		echo -e "youtube-stream is not running\n"
 	else
 		echo -e "killing server process pid=$pid..."
-		kill -i $pid
+		kill -9 $pid
 	fi	
 }
 
 
 case "$1" in 
-    start) 
-    	start
+	start) 
+		start
 		;;
 	stop)
 		stop
