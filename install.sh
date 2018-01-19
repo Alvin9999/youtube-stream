@@ -19,7 +19,7 @@ cp -R * $server_home
 ## enable and start service
 chmod +x yt-stream
 cp yt-stream /etc/init.d
-chkconf yt-stream on
+chkconfig yt-stream on
 service yt-stream start
 
 

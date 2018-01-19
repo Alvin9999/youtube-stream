@@ -5,7 +5,7 @@
 home=/usr/local/youtube-stream
 
 get_pid () {
-	local pid=$(ps aux | grep /youtube-stream/server.py | awk '{print $2}')
+	local pid=$(ps aux | grep /youtube-stream/server.py | grep -v grep | awk '{print $2}')
 	echo $pid	
 }
 
@@ -15,7 +15,7 @@ start() {
 		echo -e "starting youtube-stream server\n"
 		python $home/server.py 2>&1 >>$home/access.log &
 	else
-		echo -e "youtube-stream is already running\n"
+		echo -e "youtube-stream is already running with pid=$pid\n"
 	fi	
 }
 
@@ -25,7 +25,7 @@ stop() {
 	if [ -z $pid ]; then
 		echo -e "youtube-stream is not running\n"
 	else
-		echo -e "killing server process pid=$pid..."
+		echo -e "killing server process pid=$pid...\n"
 		kill -9 $pid
 	fi	
 }
