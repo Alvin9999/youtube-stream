@@ -1,0 +1,49 @@
+#!/bin/bash
+# youtube-stream server
+# chkconfig:   - 85 15 
+
+home=/usr/local/youtube-stream
+
+get_pid () {
+	local pid=$(ps aux | grep /youtube-stream/server.py | awk '{print $2}')
+	echo $pid	
+}
+
+start() {
+	pid=$(get_pid)
+	if [ -z $pid ]; then
+		echo -e "starting youtube-stream server\n"
+		python $home/server.py 2>&1 >>$home/access.log &
+	else
+		echo -e "youtube-stream is already running\n"
+	fi	
+}
+
+
+stop() {
+	pid=$(get_pid)
+	if [ -z $pid ]; then
+		echo -e "youtube-stream is not running\n"
+	else
+		echo -e "killing server process pid=$pid..."
+		kill -i $pid
+	fi	
+}
+
+
+case "$1" in 
+    start) 
+    	start
+		;;
+	stop)
+		stop
+		;; 
+	restart)
+		stop
+		start
+		;;
+	*)
+		echo "Usage: service yt-stream start|stop|restart"
+		exit 1
+esac
+
