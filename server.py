@@ -49,7 +49,7 @@ def get_stream(action, video_id):
         'Content-Type': 'video/mp4',
         'Content-Disposition': file_name
     }
-
+	return Response(stream_with_context(req.iter_content(chunk_size=buffer_size)), headers=headers)
 
 @app.route('/')
 def home():
