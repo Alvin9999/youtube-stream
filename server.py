@@ -49,7 +49,8 @@ def get_stream(action, video_id):
         'Content-Type': 'video/mp4',
         'Content-Disposition': file_name
     }
-	return Response(stream_with_context(req.iter_content(chunk_size=buffer_size)), headers=headers)
+    return Response(stream_with_context(req.iter_content(chunk_size=buffer_size)), headers=headers)
+
 
 @app.route('/')
 def home():
@@ -67,7 +68,7 @@ def watch():
 @app.route('/live')
 def play():
     video_id = request.args.get('v')
-    return get_stream('live', video_id)
+    return get_stream('watch', video_id)
 
 
 @app.route('/download')
